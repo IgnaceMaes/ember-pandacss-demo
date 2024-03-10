@@ -53,20 +53,15 @@ export default defineConfig({
   },
 
   // The output directory for your css system
-  outdir: "styled-system",
+-  outdir: "styled-system",
++  outdir: "app/styled-system",
++
++  // The app name import for styled-system (replace with your app name!)
++  importMap: "ember-pandacss-demo/styled-system",
 });
 ```
 
-#### 1.3 Include `styled-system` in your app
-
-For some reason, setting the panda output directory to `./app/styled-system` doesn't work. It finds the files correctly, but imports aren't detected. So we'll create a symlink to the output directory.
-
-```sh
-cd app/
-ln -s ../styled-system ./styled-system
-```
-
-#### 1.4 Add `package.json` scripts
+#### 1.3 Add `package.json` scripts
 
 ```diff
 {
@@ -78,7 +73,7 @@ ln -s ../styled-system ./styled-system
 }
 ```
 
-#### 1.5 Add ignore rule to `.stylelintignore`
+#### 1.4 Add ignore rule to `.stylelintignore`
 
 ```diff
 # unconventional files
@@ -95,7 +90,7 @@ ln -s ../styled-system ./styled-system
 + styled-system-studio
 ```
 
-#### 1.6 Import styles in `app.js`
+#### 1.5 Import styles in `app.js`
 
 ```diff
 import Application from '@ember/application';
