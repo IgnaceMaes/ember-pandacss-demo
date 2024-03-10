@@ -23,7 +23,7 @@
     "prepare": "panda codegen",
     "panda:watch": "panda --watch",
     "start": "ember serve",
-    "test": "pnpm panda && concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
+    "test": "pnpm panda && mv ./styled-system ./app/styled-system && concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
   "devDependencies": {
