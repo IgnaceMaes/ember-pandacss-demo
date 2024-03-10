@@ -6,3 +6,7 @@
 
 # addons
 /.node_modules.ember-try/
+
+## Panda
+styled-system
+styled-system-studio
