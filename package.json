@@ -20,10 +20,9 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "prepare": "panda codegen",
-    "panda:watch": "panda --watch",
+    "prepare": "panda",
     "start": "ember serve",
-    "test": "pnpm panda && mv ./styled-system ./app/styled-system && concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
+    "test": "mv ./styled-system ./app/styled-system && concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
   "devDependencies": {

@@ -74,8 +74,7 @@ ln -s ../styled-system ./styled-system
 {
   // ...
   "scripts": {
-+    "prepare": "panda codegen",
-+    "panda:watch": "panda --watch"
++    "prepare": "panda",
     // ...
   }
 }
@@ -155,7 +154,7 @@ Use the component in `app/templates/application.hbs`
 
 ```sh
 # In one terminal
-pnpm panda:watch
+pnpm panda --watch
 
 # Boot your app
 pnpm start
