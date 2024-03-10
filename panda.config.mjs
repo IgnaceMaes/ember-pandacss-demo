@@ -16,5 +16,8 @@ export default defineConfig({
   },
 
   // The output directory for your css system
-  outdir: "styled-system",
+  outdir: "app/styled-system",
+
+  // The app name import for styled-system
+  importMap: "ember-pandacss-demo/styled-system",
 });
