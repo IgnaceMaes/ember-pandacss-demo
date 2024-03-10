@@ -10,8 +10,8 @@ Panda offers two main ways to integrate in a project: either via the Panda CLI, 
 
 <p align="center">
   <img width="512" height="314" src="./output.png">
-  <figcaption align="center">PandaCSS running in an Ember app</figcaption>
 </p>
+<p align="center">PandaCSS running in an Ember app</p>
 
 ## Integrate Panda CSS in Ember using the Panda CLI
 
