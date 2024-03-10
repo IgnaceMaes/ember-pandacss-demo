@@ -1,6 +1,4 @@
-# Setting up Panda CSS in Ember
-
-*ember-pandacss-demo*
+# 🐼 Integrate PandaCSS in Ember 🐹
 
 This repo is a demo on how [Panda CSS](https://panda-css.com/) can be integrated in an Ember app. Panda CSS is a universal, type-safe, CSS-in-JS library that extracts styles at build time.
 
@@ -13,7 +11,7 @@ Panda offers two main ways to integrate in a project: either via the Panda CLI, 
 </p>
 <p align="center">PandaCSS running in an Ember app</p>
 
-## Integrate Panda CSS in Ember using the Panda CLI
+## 💻 Integrate Panda CSS in Ember using the Panda CLI
 
 ### 1. Setup
 
@@ -160,11 +158,11 @@ pnpm panda --watch
 pnpm start
 ```
 
-## Integrate Panda CSS in Ember using Post CSS
+## ⚙️ Integrate Panda CSS in Ember using Post CSS
 
 TODO: loading via `postcss-loader` Webpack/Embroider seems to not pick up the PandaCSS `@layer ...` directives. When using the PostCSS CLI directly *it does*. Investigate why, likely something in the `@pandacss/dev/postcss` plugin?
 
-## Caveats
+## ⚠️ Caveats
 
 ### PandaCSS expects JavaScript function syntax
 
