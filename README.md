@@ -74,7 +74,24 @@ ln -s ../styled-system ./styled-system
 }
 ```
 
-#### 1.5 Import styles in `app.js`
+#### 1.5 Add ignore rule to `.stylelintignore`
+
+```diff
+# unconventional files
+/blueprints/*/files/
+
+# compiled output
+/dist/
+
+# addons
+/.node_modules.ember-try/
+
++ ## Panda
++ styled-system
++ styled-system-studio
+```
+
+#### 1.6 Import styles in `app.js`
 
 ```diff
 import Application from '@ember/application';
