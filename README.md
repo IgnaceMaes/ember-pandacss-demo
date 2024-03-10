@@ -140,3 +140,24 @@ pnpm start
 ## Integrate Panda CSS in Ember using Post CSS
 
 TODO: loading via `postcss-loader` Webpack/Embroider seems to not pick up the PandaCSS `@layer ...` directives. When using the PostCSS CLI directly *it does*. Investigate why, likely something in the `@pandacss/dev/postcss` plugin?
+
+## Caveats
+
+### PandaCSS expects JavaScript function syntax
+
+PandaCSS extracts styles at build time by matching on function calls to `css`, etc. Ember uses polish notation for calling functions in templates which does not get picked up by default.
+
+**Example**
+
+While the following code snippet will corectly set the classnames at runtime, it will not be picked up by PandaCSS at build time so the classes won't be generated.
+
+```gjs
+import { css } from 'ember-pandacss-demo/styled-system/css';
+import { hash } from '@ember/helper';
+
+<template>
+  <div class={{css (hash fontSize='4xl' fontWeight='bold' color='blue.400')}}>Hello 🐼!</div>
+</template>
+```
+
+This could be solved by creating [a custom `parser:before` hook](https://panda-css.com/docs/concepts/hooks) to extract calls and convert them to the expected JavaScript function syntax.
