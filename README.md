@@ -8,6 +8,11 @@ The examples below use [Ember's template tag component authoring format](https:/
 
 Panda offers two main ways to integrate in a project: either via the Panda CLI, or via PostCSS.
 
+<p align="center">
+  <img width="512" height="314" src="./output.png">
+  <figcaption align="center">PandaCSS running in an Ember app</figcaption>
+</p>
+
 ## Integrate Panda CSS in Ember using the Panda CLI
 
 ### 1. Setup
