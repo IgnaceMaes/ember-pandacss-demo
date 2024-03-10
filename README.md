@@ -57,14 +57,20 @@ export default defineConfig({
 });
 ```
 
-#### 1.3 Include `styled-system` in your app
+#### 1.3 Set the `importMap` in `panda.config.mjs`
 
-For some reason, setting the panda output directory to `./app/styled-system` doesn't work. It finds the files correctly, but imports aren't detected. So we'll create a symlink to the output directory.
+```diff
+import { defineConfig } from "@pandacss/dev";
 
-```sh
-cd app/
-ln -s ../styled-system ./styled-system
+export default defineConfig({
+  // ...
++  importMap: "ember-pandacss-demo/styled-system",
+});
 ```
+
+Since we're not using relative imports, we need to tell Panda knowing which imports should be extracted.
+
+https://panda-css.com/docs/guides/debugging#hmr-does-not-work-when-i-use-tsconfig-paths
 
 #### 1.4 Add `package.json` scripts
 
