@@ -22,7 +22,7 @@
     "lint:js:fix": "eslint . --fix",
     "prepare": "panda",
     "start": "ember serve",
-    "test": "mv ./styled-system ./app/styled-system && concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
+    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
   "devDependencies": {
