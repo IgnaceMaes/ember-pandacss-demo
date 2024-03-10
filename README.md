@@ -2,7 +2,9 @@
 
 *ember-pandacss-demo*
 
-This repo is a demo on how [Panda CSS](https://panda-css.com/) can be integrated in an Ember app.
+This repo is a demo on how [Panda CSS](https://panda-css.com/) can be integrated in an Ember app. Panda CSS is a universal, type-safe, CSS-in-JS library that extracts styles at build time.
+
+The examples below use [Ember's template tag component authoring format](https://guides.emberjs.com/release/components/template-tag-format/). It's not a hard requirement, but the developer experience is way nicer!
 
 Panda offers two main ways to integrate in a project: either via the Panda CLI, or via PostCSS.
 
