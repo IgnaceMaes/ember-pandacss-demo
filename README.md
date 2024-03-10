@@ -1,57 +1,142 @@
-# ember-pandacss-demo
+# Setting up Panda CSS in Ember
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+*ember-pandacss-demo*
 
-## Prerequisites
+This repo is a demo on how [Panda CSS](https://panda-css.com/) can be integrated in an Ember app.
 
-You will need the following things properly installed on your computer.
+Panda offers two main ways to integrate in a project: either via the Panda CLI, or via PostCSS.
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/)
-* [pnpm](https://pnpm.io/)
-* [Ember CLI](https://cli.emberjs.com/release/)
-* [Google Chrome](https://google.com/chrome/)
+## Integrate Panda CSS in Ember using the Panda CLI
 
-## Installation
+### 1. Setup
 
-* `git clone <repository-url>` this repository
-* `cd ember-pandacss-demo`
-* `pnpm install`
+#### 1.1 Start a new project and add Panda CSS
 
-## Running / Development
+```sh
+# Start new Ember project
+npx ember-cli new ember-pandacss-demo --embroider --no-welcome --pnpm
 
-* `pnpm start`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+# Add support for .gjs/.gts template tag component format
+pnpm install -D ember-template-imports prettier-plugin-ember-template-tag
+## Prettier setup: https://github.com/gitKrystan/prettier-plugin-ember-template-tag
+## ESLint setup: https://github.com/ember-cli/eslint-plugin-ember#gtsgjs
 
-### Code Generators
+# Add Panda CSS
+pnpm install -D @pandacss/dev
+pnpm panda init
+```
 
-Make use of the many generators for code, try `ember help generate` for more details
+#### 1.2 Update `panda.config.mjs` to include `gjs,gts`
 
-### Running Tests
+```diff
+import { defineConfig } from "@pandacss/dev";
 
-* `pnpm test`
-* `pnpm test:ember --server`
+export default defineConfig({
+  // Whether to use css reset
+  preflight: true,
 
-### Linting
+  // Where to look for your css declarations
+-  include: ['./src/**/*.{ts,tsx,js,jsx}', './pages/**/*.{ts,tsx,js,jsx}'],
++  include: ["./app/**/*.{js,gjs,ts,gts}"],
 
-* `pnpm lint`
-* `pnpm lint:fix`
+  // Files to exclude
+  exclude: [],
 
-### Building
+  // Useful for theme customization
+  theme: {
+    extend: {},
+  },
 
-* `pnpm ember build` (development)
-* `pnpm build` (production)
+  // The output directory for your css system
+  outdir: "styled-system",
+});
+```
 
-### Deploying
+#### 1.3 Include `styled-system` in your app
 
-Specify what it takes to deploy your app.
+For some reason, setting the panda output directory to `./app/styled-system` doesn't work. It finds the files correctly, but imports aren't detected. So we'll create a symlink to the output directory.
 
-## Further Reading / Useful Links
+```sh
+cd app/
+ln -s ../styled-system ./styled-system
+```
 
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://cli.emberjs.com/release/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+#### 1.4 Add `package.json` scripts
+
+```diff
+{
+  // ...
+  "scripts": {
++    "prepare": "panda codegen",
++    "panda:watch": "panda --watch"
+    // ...
+  }
+}
+```
+
+#### 1.5 Import styles in `app.js`
+
+```diff
+import Application from '@ember/application';
+import Resolver from 'ember-resolver';
+import loadInitializers from 'ember-load-initializers';
+import config from 'ember-pandacss-demo/config/environment';
++ import './styled-system/styles.css';
+
+export default class App extends Application {
+  modulePrefix = config.modulePrefix;
+  podModulePrefix = config.podModulePrefix;
+  Resolver = Resolver;
+}
+
+loadInitializers(App, config.modulePrefix);
+```
+
+### 2. Usage
+
+#### 2.1 Use PandaCSS in a new component
+
+```sh
+# Add a new component
+touch app/components/hello-panda.gjs
+```
+
+```gjs
+import { css } from 'ember-pandacss-demo/styled-system/css';
+
+const style = css({
+  fontSize: '4xl',
+  fontWeight: 'bold',
+  color: 'blue.400',
+});
+
+<template>
+  <div class={{style}}>Hello 🐼!</div>
+</template>
+```
+
+Use the component in `app/templates/application.hbs`
+
+```diff
+{{page-title "EmberPandacssDemo"}}
+
+<h2 id="title">Welcome to Ember</h2>
+
++ <HelloPanda />
+
+{{outlet}}
+```
+
+#### 2.2 Run local dev server
+
+```sh
+# In one terminal
+pnpm panda:watch
+
+# Boot your app
+pnpm start
+```
+
+## Integrate Panda CSS in Ember using Post CSS
+
+TODO: loading via `postcss-loader` Webpack/Embroider seems to not pick up the PandaCSS `@layer ...` directives. When using the PostCSS CLI directly *it does*. Investigate why, likely something in the `@pandacss/dev/postcss` plugin?
